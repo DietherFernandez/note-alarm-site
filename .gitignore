@@ -1,0 +1,8 @@
+# Never publish the app build from this repo
+*.apk
+*.aab
+website/download/
+
+# OS noise
+.DS_Store
+Thumbs.db

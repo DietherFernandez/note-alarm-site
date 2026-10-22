@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NoteAlarm — offline notes with alarms that speak</title>
+  <meta name="description" content="NoteAlarm is an offline Android notes app whose reminders can chime, read the note aloud, or do both. No account, no cloud, and no internet permission.">
+  <meta name="theme-color" content="#0B0A0F">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NoteAlarm — offline notes with alarms that speak">
+  <meta property="og:description" content="Write it down. Let it speak. A private notes app for Android with alarms in sound, voice, or both.">
+  <meta property="og:image" content="assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a10 10 0 0 1 0 13"/></symbol>
+    <symbol id="i-audio-lines" viewBox="0 0 24 24"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/><path d="M5 12.86a10 10 0 0 1 5.17-2.69"/><path d="M19 12.86a10 10 0 0 0-2.01-1.52"/><path d="M2 8.82a15 15 0 0 1 4.18-2.64"/><path d="M22 8.82a15 15 0 0 0-11.29-3.76"/><path d="m2 2 20 20"/></symbol>
+    <symbol id="i-alarm" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3 2 6"/><path d="M22 6l-3-3"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+    <symbol id="i-bell-ring" viewBox="0 0 24 24"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M22 8c0-2.3-.8-4.3-2-6"/><path d="M2 8c0-2.3.8-4.3 2-6"/></symbol>
+    <symbol id="i-notebook" viewBox="0 0 24 24"><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9.5 8h5"/><path d="M9.5 12H16"/><path d="M9.5 16H14"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  </svg>
+
+  <header class="site-header" id="siteHeader">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="NoteAlarm home">
+        <span class="brand-mark" aria-hidden="true"><svg class="icon"><use href="#i-bell"/></svg></span>
+        <span class="brand-name">NoteAlarm</span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#how">How it rings</a>
+        <a href="#features">Features</a>
+        <a href="#shots">Screens</a>
+        <a href="#trial">Trial</a>
+      </nav>
+      <a class="btn btn-primary btn-sm" href="#trial">
+        <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+        Request a trial
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Offline notes · talking alarms · Android</p>
+          <h1 class="reveal">Write it down.<br><span class="accent">Let it speak.</span></h1>
+          <p class="lede reveal">A quiet notes app for Android — until it needs to be loud. Set a reminder and NoteAlarm can chime, read the note out loud, or do both. Your notes never leave the phone; the app doesn't even request internet access.</p>
+          <div class="hero-cta reveal">
+            <a class="btn btn-primary" href="#trial">
+              <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+              Request a trial
+            </a>
+            <a class="btn btn-ghost" href="#how">
+              How it rings
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"/></svg>
+            </a>
+          </div>
+          <ul class="facts reveal" aria-label="Key facts">
+            <li><strong>1.0.0</strong><span>Version</span></li>
+            <li><strong>8.0+</strong><span>Android</span></li>
+            <li><strong>3</strong><span>Ring modes</span></li>
+            <li><strong>0</strong><span>Internet permissions</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="device device-hero">
+            <img src="assets/shots/voice.png" alt="NoteAlarm voice alarm settings: Filipino language and voice selected, speech speed and pitch, repeat announcement, and read title/content toggles" width="720" height="1600">
+          </div>
+          <div class="notif-card">
+            <div class="notif-top">
+              <span class="notif-icon" aria-hidden="true"><svg class="icon"><use href="#i-bell"/></svg></span>
+              <div>
+                <p class="notif-title">Morning stand-up</p>
+                <p class="notif-meta">9:00 AM · Speaking the note</p>
+              </div>
+            </div>
+            <p class="notif-body">Ship the release notes, review the open issues…</p>
+            <div class="notif-actions">
+              <span>Snooze 5 min</span>
+              <span>Dismiss</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow reveal">Three ways to be reminded</p>
+          <h2 class="reveal">Pick the alarm that fits the moment.</h2>
+          <p class="section-sub reveal">Every reminder chooses its own ring mode. Change it per note — there is no global setting to wrestle with.</p>
+        </header>
+
+        <div class="modes">
+          <article class="mode reveal">
+            <div class="mode-top">
+              <span class="mode-tag">Mode A</span>
+              <span class="mode-icon" aria-hidden="true"><svg class="icon"><use href="#i-volume"/></svg></span>
+            </div>
+            <h3>Sound only</h3>
+            <p>Your chime, the system alarm sound, or an audio file you imported. It plays and keeps ringing until you snooze or dismiss.</p>
+            <p class="sample">Chime · loops until dismissed</p>
+          </article>
+
+          <article class="mode reveal">
+            <div class="mode-top">
+              <span class="mode-tag">Mode B</span>
+              <span class="mode-icon" aria-hidden="true"><svg class="icon"><use href="#i-audio-lines"/></svg></span>
+            </div>
+            <h3>Voice only</h3>
+            <p>The phone reads the note aloud — title, content, or both — and repeats the announcement at your chosen interval.</p>
+            <p class="sample">“Morning stand-up. Ship the release notes…”</p>
+          </article>
+
+          <article class="mode reveal">
+            <div class="mode-top">
+              <span class="mode-tag">Mode C</span>
+              <span class="mode-icon" aria-hidden="true"><svg class="icon"><use href="#i-layers"/></svg></span>
+            </div>
+            <h3>Sound + voice</h3>
+            <p>The alarm keeps playing while the note is spoken. Speech ducks the chime — it never mutes it.</p>
+            <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </article>
+        </div>
+
+        <p class="fineprint reveal">Voices come from Android's text-to-speech engine, including the ones already installed on your phone. If a chosen voice isn't available, NoteAlarm says so and falls back to the alarm sound — it never fails silently.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="features">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow reveal">What's inside</p>
+          <h2 class="reveal">Small app. Serious about the basics.</h2>
+          <p class="section-sub reveal">Built like a tool you own, not a service you rent.</p>
+        </header>
+
+        <div class="features">
+          <article class="feature reveal">
+            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#i-wifi-off"/></svg></span>
+            <h3>Fully offline</h3>
+            <p>No internet permission, no account, no cloud. Notes, reminders and preferences live in a local database on the device.</p>
+          </article>
+          <article class="feature reveal">
+            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#i-alarm"/></svg></span>
+            <h3>Exact timing</h3>
+            <p>Built on Android's exact-alarm APIs, so a 9:00 reminder rings at 9:00. The app explains the permission if the system asks for it.</p>
+          </article>
+          <article class="feature reveal">
+            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#i-music"/></svg></span>
+            <h3>Sounds you choose</h3>
+            <p>Built-in tones, the system alarm sound, or an audio file you import — copied onto the phone, not streamed from anywhere.</p>
+          </article>
+          <article class="feature reveal">
+            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#i-bell-ring"/></svg></span>
+            <h3>Act from the notification</h3>
+            <p>Snooze for five minutes or dismiss without opening the app. The notification stays put while the alarm rings.</p>
+          </article>
+          <article class="feature reveal">
+            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#i-notebook"/></svg></span>
+            <h3>Notes that keep up</h3>
+            <p>Search, pin, undo a delete, and see word and character counts while you type. The list sorts the way you expect.</p>
+          </article>
+          <article class="feature reveal">
+            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></span>
+            <h3>Privacy controls</h3>
+            <p>Hide note text on the lock screen if you want, and choose separately whether the voice reads the title, the content, or both.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="shots">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow reveal">Inside the app</p>
+          <h2 class="reveal">Dark, quiet, and out of the way.</h2>
+          <p class="section-sub reveal">Real screens from the phone, not a concept render.</p>
+        </header>
+
+        <div class="gallery">
+          <figure class="shot reveal">
+            <div class="device">
+              <img src="assets/shots/reminder.png" alt="Reminder options in NoteAlarm: repeat rule, alarm sound, vibration, gradual volume, label, and ring mode chips for Sound, Voice, and Sound + voice" width="720" height="1600" loading="lazy">
+            </div>
+            <figcaption><span class="shot-num">01</span> Reminder options — sound, vibration, and the three ring modes.</figcaption>
+          </figure>
+          <figure class="shot reveal">
+            <div class="device">
+              <img src="assets/shots/voice.png" alt="Voice alarm settings: language and voice pickers, speech speed and pitch, repeat announcement interval, and read title/content toggles" width="720" height="1600" loading="lazy">
+            </div>
+            <figcaption><span class="shot-num">02</span> Voice controls — use an installed voice, then tune speed, pitch and repetition.</figcaption>
+          </figure>
+          <figure class="shot reveal">
+            <div class="device">
+              <img src="assets/shots/settings.png" alt="NoteAlarm settings showing Version 1.0.0, theme, sorting, pinned notes, timestamps and exact alarm status" width="720" height="1600" loading="lazy">
+            </div>
+            <figcaption><span class="shot-num">03</span> Settings — version 1.0.0, sorting, and the exact-alarm status at a glance.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="credits">
+      <div class="wrap credits">
+        <div class="credits-copy">
+          <p class="eyebrow reveal">Behind the app</p>
+          <h2 class="reveal">Designed and built by<br>Diether Fernandez.</h2>
+          <p class="section-sub reveal">One developer, no trackers, no growth team. NoteAlarm is offline-first because that is how a notes app should work — your writing is nobody else's business.</p>
+          <ul class="check-list reveal">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>No ads, no analytics, no sign-in</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Notes stored in SQLite on the device</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Trial builds shared personally</li>
+          </ul>
+        </div>
+        <div class="credit-card reveal">
+          <img src="assets/shots/about.png" alt="NoteAlarm About section showing Developer: Diether Fernandez and the statement that the app requests no internet permission and has no account or tracking" width="648" height="440" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trial">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow reveal">Trial by request</p>
+          <h2 class="reveal">Ask for a build.<br>I'll send it personally.</h2>
+          <p class="section-sub reveal">NoteAlarm isn't published for public download. Send a short request and I'll reply with the current APK and its SHA-256.</p>
+        </header>
+
+        <div class="trial-card reveal">
+          <div class="trial-main">
+            <div class="trial-head">
+              <img src="assets/icon-192.png" alt="" width="56" height="56" class="trial-icon">
+              <div>
+                <p class="trial-title">NoteAlarm <span class="version-pill">1.0.0</span></p>
+                <p class="trial-meta">Android 8.0+ · direct-install APK · sent by email</p>
+              </div>
+            </div>
+
+            <div class="trial-actions">
+              <a class="btn btn-primary btn-lg" href="mailto:Diether.fernandez82@gmail.com?subject=NoteAlarm%20trial%20request&amp;body=Hi%20Diether%2C%0A%0AI%27d%20like%20to%20try%20NoteAlarm.%0A%0AWhat%20I%27d%20use%20it%20for%3A%0APhone%20%2F%20Android%20version%3A%0A%0AThanks%21">
+                <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+                Email a trial request
+              </a>
+              <button class="btn btn-ghost" type="button" data-copy="Diether.fernandez82@gmail.com" data-copy-target="#trialEmail">
+                <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+                <span>Copy address</span>
+              </button>
+            </div>
+            <p class="trial-address"><span>Email</span> <a id="trialEmail" href="mailto:Diether.fernandez82@gmail.com">Diether.fernandez82@gmail.com</a></p>
+
+            <ul class="trial-points">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>The reply includes the APK and its SHA-256 checksum.</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>No public link and no store listing — every build is shared by hand.</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>No account, no sign-in, no email tracking.</li>
+            </ul>
+
+            <p class="download-note">Direct-install build, not distributed through Google Play. Android will ask you to allow installs from your mail or file manager. Tested on a Samsung Galaxy A06 running Android 16.</p>
+          </div>
+
+          <div class="steps">
+            <h3>How it works</h3>
+            <ol>
+              <li><span class="step-num">1</span><div><strong>Send the request.</strong><p>Your mail app opens with a short template: what you'd use it for, plus your phone and Android version.</p></div></li>
+              <li><span class="step-num">2</span><div><strong>Get the build by reply.</strong><p>You receive NoteAlarm 1.0.0 and the SHA-256 checksum so you can verify the file.</p></div></li>
+              <li><span class="step-num">3</span><div><strong>Install and allow notifications.</strong><p>Open the APK, allow installs from that app, then grant notification access so reminders can ring.</p></div></li>
+            </ol>
+            <p class="steps-note">Trial builds are debug-signed. That's normal for direct installs and keeps the app off the Play Store for now.</p>
+          </div>
+        </div>
+
+        <div class="faq reveal">
+          <h3>Questions, answered plainly</h3>
+          <details>
+            <summary>How do I get the app?</summary>
+            <p>Send a trial request by email. I reply personally with the APK and its SHA-256 — there is no public download page.</p>
+          </details>
+          <details>
+            <summary>Does NoteAlarm need internet?</summary>
+            <p>No. The app does not request the internet permission at all. Notes, reminders and settings stay in a local database on the phone.</p>
+          </details>
+          <details>
+            <summary>Will the voice speak in my language?</summary>
+            <p>It uses the text-to-speech voices installed on your device. Pick a language and a voice in the note's voice settings. If the chosen voice is missing, the app warns you and falls back to the alarm sound.</p>
+          </details>
+          <details>
+            <summary>Why does Android mention exact alarms?</summary>
+            <p>Android can delay inexact alarms to save battery. NoteAlarm uses the exact-alarm APIs so a 9:00 reminder actually rings at 9:00. Settings shows whether the permission is allowed.</p>
+          </details>
+          <details>
+            <summary>Is there a cloud backup?</summary>
+            <p>No. There is no account and no cloud copy. The notes live in the app's local storage; uninstalling the app removes them.</p>
+          </details>
+          <details>
+            <summary>Which Android versions are supported?</summary>
+            <p>Android 8.0 (API 26) and newer. It has been tested on a Samsung Galaxy A06 running Android 16.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true"><svg class="icon"><use href="#i-bell"/></svg></span>
+        <span>NoteAlarm</span>
+      </div>
+      <p class="footer-credit">Designed and built by <strong>Diether Fernandez</strong>.</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#how">How it rings</a>
+        <a href="#features">Features</a>
+        <a href="#shots">Screens</a>
+        <a href="#trial">Trial</a>
+      </nav>
+      <p class="footer-note">Version 1.0.0 · Trial by request · <span id="year">2026</span></p>
+    </div>
+  </footer>
+
+  <script src="assets/script.js" defer></script>
+</body>
+</html>
